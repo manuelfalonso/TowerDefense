@@ -226,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 215106506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.28, y: -1.2849774, z: 0.54804915}
+  m_LocalPosition: {x: 2.91, y: -1.2849774, z: 0.54804915}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -557,6 +557,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5821404f5a7f62c44bff64b7d39cf963,
         type: 2}
+    - target: {fileID: 4473261636957309632, guid: 9142c41df5f79d145be3f039a4337d53,
+        type: 3}
+      propertyPath: bulletToShoot
+      value: 
+      objectReference: {fileID: 8490310675609276379, guid: 45799a8b99c54f64e8799e98207f77c6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

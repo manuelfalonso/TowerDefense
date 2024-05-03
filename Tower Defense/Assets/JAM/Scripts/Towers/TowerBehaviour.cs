@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JAM.Entities.Enemy;
+using JAM.Bullets;
 
 namespace JAM.Tower
 {
@@ -9,6 +10,7 @@ namespace JAM.Tower
     {
         [SerializeField] private BaseTower towerData;
         [SerializeField] private BoxCollider collider;
+        [SerializeField] private GameObject bulletToShoot;
         private float secondsToShoot;
         private List<Enemy> enemiesInRange;
 
@@ -21,9 +23,14 @@ namespace JAM.Tower
 
         private void Shoot() 
         {
-            // Bullets pending
             if (enemiesInRange.Count != 0)
-                Debug.Log("IsShooting");
+            {
+                GameObject newBullet = Instantiate(bulletToShoot, transform.position, transform.rotation);
+                if (newBullet.TryGetComponent<BulletBehaviour>(out BulletBehaviour bulletBehaviour)) 
+                {
+                    bulletBehaviour.SetTarget(enemiesInRange[0].gameObject.transform.position);
+                }
+            }
         }
 
         private void OnTargetBehaviour() 
@@ -43,7 +50,6 @@ namespace JAM.Tower
             {
                 if (other.gameObject.TryGetComponent<Enemy>(out newEnemy)) 
                 {
-                    Debug.Log("Add");
                     enemiesInRange.Add(newEnemy);
                 }
             }
@@ -65,7 +71,6 @@ namespace JAM.Tower
                 {
                     if (enemiesInRange[i].gameObject == other.gameObject)
                     {
-                        Debug.Log("Remove");
                         enemiesInRange.Remove(enemiesInRange[i]);
                     }
                 }
