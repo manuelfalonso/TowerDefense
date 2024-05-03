@@ -7,20 +7,20 @@ namespace JAM.Bullets
     public class BulletBehaviour : MonoBehaviour
     {
         [SerializeField] private BaseBullet _bulletData;
-        private Vector3 _target;
+        private GameObject _target;
         private float _timer = 0f;
 
-        public void SetTarget(Vector3 target)
+        public void SetTarget(GameObject target)
         {
             _target = target;
         }
 
         private void Movement() 
         {
-            if (_target != null && _bulletData.DirectTowardsPlayer) 
+            if (_target != null && _bulletData.Hooming) 
             {
                 float step = _bulletData.Speed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, _target, step);
+                transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, step);
             }
             else 
             {

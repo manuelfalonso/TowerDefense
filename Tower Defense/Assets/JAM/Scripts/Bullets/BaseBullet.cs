@@ -11,7 +11,7 @@ namespace JAM.Bullets
         [SerializeField] public float Damage;
         [SerializeField] public float LifeTime;
         [SerializeField] public Vector3 Direction;
-        [SerializeField] public bool DirectTowardsPlayer;
+        [SerializeField] public bool Hooming;
         [SerializeField] public bool HasAOE;
     }
 }

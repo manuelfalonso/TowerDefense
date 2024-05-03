@@ -28,7 +28,7 @@ namespace JAM.Tower
                 GameObject newBullet = Instantiate(bulletToShoot, transform.position, transform.rotation);
                 if (newBullet.TryGetComponent<BulletBehaviour>(out BulletBehaviour bulletBehaviour)) 
                 {
-                    bulletBehaviour.SetTarget(enemiesInRange[0].gameObject.transform.position);
+                    bulletBehaviour.SetTarget(enemiesInRange[0].gameObject);
                 }
             }
         }
