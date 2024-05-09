@@ -9,6 +9,7 @@ namespace JAM.Bullets
         [SerializeField] private BaseBullet _bulletData;
         private GameObject _target;
         private float _timer = 0f;
+        const string _TARGETTAG = "Enemy";
 
         public void SetTarget(GameObject target)
         {
@@ -40,13 +41,21 @@ namespace JAM.Bullets
         public void BulletDestroy() 
         {
             _timer = 0f;
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
 
         void Update()
         {
             Movement();
             BulletLifeTime();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(_TARGETTAG))
+            {
+                BulletDestroy();
+            }
         }
     }
 }

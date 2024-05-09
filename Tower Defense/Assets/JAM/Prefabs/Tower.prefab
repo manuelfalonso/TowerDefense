@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2295079117566143223}
   - component: {fileID: 4632541231843774267}
   - component: {fileID: 1368107720601181123}
-  - component: {fileID: 4359588189857153312}
   - component: {fileID: 4473261636957309632}
   - component: {fileID: 7950059921668242633}
+  - component: {fileID: 43699108641017298}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -86,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4359588189857153312
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3475562648728397737}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4473261636957309632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1741631d0b3406e4ea373a8a700a790b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 0}
-  collider: {fileID: 4359588189857153312}
+  towerData: {fileID: 11400000, guid: 5821404f5a7f62c44bff64b7d39cf963, type: 2}
+  collider: {fileID: 43699108641017298}
+  bulletToShoot: {fileID: 8490310675609276379, guid: 45799a8b99c54f64e8799e98207f77c6,
+    type: 3}
 --- !u!54 &7950059921668242633
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,3 +129,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &43699108641017298
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3475562648728397737}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

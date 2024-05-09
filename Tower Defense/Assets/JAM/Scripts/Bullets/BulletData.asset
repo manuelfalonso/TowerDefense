@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   Damage: 1
-  LifeTime: 0.5
+  LifeTime: 2
   Direction: {x: 0, y: 0, z: 0}
-  DirectTowardsPlayer: 1
+  Hooming: 1
   HasAOE: 0

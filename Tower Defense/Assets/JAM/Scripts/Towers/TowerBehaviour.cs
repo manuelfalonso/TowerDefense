@@ -9,14 +9,15 @@ namespace JAM.Tower
     public class TowerBehaviour : MonoBehaviour
     {
         [SerializeField] private BaseTower towerData;
-        [SerializeField] private BoxCollider collider;
+        [SerializeField] private SphereCollider collider;
         [SerializeField] private GameObject bulletToShoot;
         private float secondsToShoot;
+        private const string _ENEMYTAG = "Enemy";
         private List<Enemy> enemiesInRange;
 
         private void Awake()
         {
-            collider.size = towerData.Range;
+            collider.radius = towerData.Range;
             secondsToShoot = 0;
             enemiesInRange = new List<Enemy>();
         }
@@ -35,18 +36,26 @@ namespace JAM.Tower
 
         private void OnTargetBehaviour() 
         {
-            secondsToShoot += Time.deltaTime;
-            if (secondsToShoot >= towerData.SecondsToShoot) 
+            if (enemiesInRange.Count > 0)
             {
-                Shoot();
-                secondsToShoot = 0;
+                secondsToShoot += Time.deltaTime;
+                if (secondsToShoot >= towerData.SecondsToShoot)
+                {
+                    Shoot();
+                    secondsToShoot = 0;
+                }
             }
+        }
+
+        private void Update()
+        {
+            OnTargetBehaviour();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             Enemy newEnemy;
-            if (other.gameObject.tag == "Enemy") 
+            if (other.CompareTag(_ENEMYTAG)) 
             {
                 if (other.gameObject.TryGetComponent<Enemy>(out newEnemy)) 
                 {
@@ -55,24 +64,13 @@ namespace JAM.Tower
             }
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.gameObject.tag == "Enemy") 
-            {
-                OnTargetBehaviour();
-            }
-        }
-
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == "Enemy")
+            if (other.CompareTag(_ENEMYTAG))
             {
-                for (int i = 0; i < enemiesInRange.Count; i++)
+                if (other.TryGetComponent(out Enemy enemy)) 
                 {
-                    if (enemiesInRange[i].gameObject == other.gameObject)
-                    {
-                        enemiesInRange.Remove(enemiesInRange[i]);
-                    }
+                    enemiesInRange.Remove(enemy);
                 }
             }
         }
