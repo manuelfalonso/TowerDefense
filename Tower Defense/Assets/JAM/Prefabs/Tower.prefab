@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerData: {fileID: 11400000, guid: 5821404f5a7f62c44bff64b7d39cf963, type: 2}
   collider: {fileID: 43699108641017298}
-  bulletToShoot: {fileID: 8490310675609276379, guid: 45799a8b99c54f64e8799e98207f77c6,
+  bulletToShoot: {fileID: 7983049045505035775, guid: 45799a8b99c54f64e8799e98207f77c6,
     type: 3}
 --- !u!54 &7950059921668242633
 Rigidbody:

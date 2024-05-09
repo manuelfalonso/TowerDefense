@@ -10,7 +10,7 @@ namespace JAM.Tower
     {
         [SerializeField] private BaseTower towerData;
         [SerializeField] private SphereCollider collider;
-        [SerializeField] private GameObject bulletToShoot;
+        [SerializeField] private BulletBehaviour bulletToShoot;
         private float secondsToShoot;
         private const string _ENEMYTAG = "Enemy";
         private List<Enemy> enemiesInRange;
@@ -26,11 +26,8 @@ namespace JAM.Tower
         {
             if (enemiesInRange.Count != 0)
             {
-                GameObject newBullet = Instantiate(bulletToShoot, transform.position, transform.rotation);
-                if (newBullet.TryGetComponent<BulletBehaviour>(out BulletBehaviour bulletBehaviour)) 
-                {
-                    bulletBehaviour.SetTarget(enemiesInRange[0].gameObject);
-                }
+                BulletBehaviour newBullet = Instantiate<BulletBehaviour>(bulletToShoot, transform.position, transform.rotation);
+                newBullet.SetTarget(enemiesInRange[0].gameObject);
             }
         }
 
