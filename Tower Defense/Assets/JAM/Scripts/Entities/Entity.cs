@@ -9,7 +9,7 @@ namespace JAM.Entities
 {
     public class Entity : MonoBehaviour, IDamageable, IHealable
     {
-        [SerializeField] protected ResourceSystemClient _healthSystem;
+        [SerializeField] protected HealthResourceSystem _healthSystem;
         [SerializeField] protected StatSheet _stats;
         [SerializeField] protected SFXEntityHelper _sfxEntityHelper;
         [SerializeField] protected string _hurtSFX;
@@ -19,7 +19,7 @@ namespace JAM.Entities
         public StatContainer StatContainer { get; protected set; }
         public Action<DamageData> Damaged { get; set; }
 
-        public ResourceSystemClient HealthSystem => _healthSystem;
+        public HealthResourceSystem HealthSystem => _healthSystem;
         public bool IsChasing() => _chasing;
 
 
