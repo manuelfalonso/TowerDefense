@@ -8,6 +8,7 @@ namespace JAM
     {
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private ObjectPool _towerPool;
+        [SerializeField] private int objectDistance;
 
         void Update()
         {
@@ -20,7 +21,8 @@ namespace JAM
         private void SpawnBuilding() 
         {
             Vector3 mousePosition = Input.mousePosition;
-            Vector3 spawnPosition = _mainCamera.ScreenToViewportPoint(mousePosition);
+            mousePosition.z = _mainCamera.nearClipPlane + objectDistance;
+            Vector3 spawnPosition = _mainCamera.ScreenToWorldPoint(mousePosition);
             GameObject newBuilding = _towerPool.CallObjectFromPool();
             newBuilding.transform.position = spawnPosition;
         }

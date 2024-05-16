@@ -427,6 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 659086502}
   _towerPool: {fileID: 815441744}
+  objectDistance: 10
 --- !u!4 &615271457
 Transform:
   m_ObjectHideFlags: 0
