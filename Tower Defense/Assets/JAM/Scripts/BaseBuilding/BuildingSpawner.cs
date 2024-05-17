@@ -9,12 +9,23 @@ namespace JAM
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private ObjectPool _towerPool;
         [SerializeField] private int objectDistance;
+        private bool active;
+
+        private void Awake()
+        {
+            active = true;
+        }
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && active)
             {
                 SpawnBuilding();
+            }
+
+            if (Input.GetMouseButtonDown(1)) 
+            {
+                active = false;
             }
         }
 
