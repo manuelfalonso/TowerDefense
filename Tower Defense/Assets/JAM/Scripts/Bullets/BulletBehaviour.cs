@@ -41,7 +41,7 @@ namespace JAM.Bullets
         public void BulletDestroy() 
         {
             _timer = 0f;
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
 
         void Update()
