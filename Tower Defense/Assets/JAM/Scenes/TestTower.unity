@@ -426,7 +426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 659086502}
-  _towerPool: {fileID: 815441744}
+  _towerPool:
+  - {fileID: 815441744}
   objectDistance: 10
 --- !u!4 &615271457
 Transform:
@@ -609,8 +610,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a1c209892db8d4e99ca7e6adf1a16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3475562648728397737, guid: 9142c41df5f79d145be3f039a4337d53, type: 3}
-  poolSize: 15
+  _prefab: {fileID: 3475562648728397737, guid: 9142c41df5f79d145be3f039a4337d53, type: 3}
+  _poolSize: 4
+  _buildingType: 0
 --- !u!4 &815441745
 Transform:
   m_ObjectHideFlags: 0

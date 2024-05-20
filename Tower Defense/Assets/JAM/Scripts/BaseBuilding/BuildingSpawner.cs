@@ -15,7 +15,7 @@ namespace JAM
     public class BuildingSpawner : MonoBehaviourSingleton<BuildingSpawner>
     {
         [SerializeField] private Camera _mainCamera;
-        [SerializeField] private ObjectPool _towerPool; // Make it a list (Hollow)
+        [SerializeField] private List<ObjectPool> _towerPool; // Make it a list (Hollow)
         [SerializeField] private int objectDistance;
         private bool _active;
         private BuildingType _buildingType;
@@ -23,6 +23,7 @@ namespace JAM
         protected override void Awake()
         {
             _active = false;
+            _buildingType = BuildingType.Tower;
         }
 
         void Update()
@@ -43,7 +44,12 @@ namespace JAM
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = _mainCamera.nearClipPlane + objectDistance;
             Vector3 spawnPosition = _mainCamera.ScreenToWorldPoint(mousePosition);
-            GameObject newBuilding = _towerPool.CallObjectFromPool();
+            GameObject newBuilding = null;
+            for (int i = 0; i < _towerPool.Count; i++)
+            {
+                if (_towerPool[i].GetBuildingType() == _buildingType)
+                    newBuilding = _towerPool[i].CallObjectFromPool();
+            }
             newBuilding.transform.position = spawnPosition;
         }
 
