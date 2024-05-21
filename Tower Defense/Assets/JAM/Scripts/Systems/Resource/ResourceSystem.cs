@@ -22,7 +22,7 @@ namespace JAM.Shared.Systems.Resource
     /// 
     /// It can be used with any tipe of resource. For example life, mana, wood, water, etc.
     /// </summary>
-    public class ResourceSystem : MonoBehaviour, IResourceSystem
+    public class ResourceSystem : MonoBehaviour
     {
         [Header("ResourceBase")]
         /// <summary>
@@ -46,7 +46,7 @@ namespace JAM.Shared.Systems.Resource
         /// The maximum amount the resource can have.
         /// </summary>
         [Tooltip("The description of the resource.")]
-        [SerializeField] private float _maxAmount;
+        [SerializeField] private float _maxAmount = Mathf.Infinity;
 
         [Header("Protection cooldown")]
         /// <summary>
@@ -121,12 +121,12 @@ namespace JAM.Shared.Systems.Resource
         public float DegenerationTick { get => _degenerationTick; set => _degenerationTick = value; }
         public float DegenerationRate { get => _degenerationRate; set => _degenerationRate = value; }
 
-        UnityEvent<float> IResourceSystem.AmountChanged { get => _amountChanged; set => _amountChanged = value; }
-        UnityEvent<float> IResourceSystem.AmountChangedNormalized { get => _amountChangedNormalized; set => _amountChangedNormalized = value; }
-        UnityEvent<float> IResourceSystem.AmountRestored { get => _amountRestored; set => _amountRestored = value; }
-        UnityEvent<float> IResourceSystem.AmountMaxed { get => _amountMaxed; set => _amountMaxed = value; }
-        UnityEvent<float> IResourceSystem.AmountLow { get => _amountLow; set => _amountLow = value; }
-        UnityEvent<float> IResourceSystem.AmountEmptied { get => _amountEmptied; set => _amountEmptied = value; }
+        //UnityEvent<float> AmountChanged { get => _amountChanged; set => _amountChanged = value; }
+        //UnityEvent<float> AmountChangedNormalized { get => _amountChangedNormalized; set => _amountChangedNormalized = value; }
+        //UnityEvent<float> AmountRestored { get => _amountRestored; set => _amountRestored = value; }
+        //UnityEvent<float> AmountMaxed { get => _amountMaxed; set => _amountMaxed = value; }
+        //UnityEvent<float> AmountLow { get => _amountLow; set => _amountLow = value; }
+        //UnityEvent<float> AmountEmptied { get => _amountEmptied; set => _amountEmptied = value; }
 
         /// <summary>
         /// The resource instance managing the resource data.
@@ -161,32 +161,32 @@ namespace JAM.Shared.Systems.Resource
         /// Event invoked when the resource amount changes.
         /// </summary>
         [Tooltip("Event invoked when the resource amount changes.")]
-        [SerializeField] public UnityEvent<float> _amountChanged = new UnityEvent<float>();
+        public UnityEvent<float> AmountChanged = new UnityEvent<float>();
         /// <summary>
         /// Event invoked when the resource amount changes. Returns the normalized amount.
         /// </summary>
         [Tooltip("Event invoked when the resource amount changes. Returns the normalized amount.")]
-        [SerializeField] public UnityEvent<float> _amountChangedNormalized = new UnityEvent<float>();
+        public UnityEvent<float> AmountChangedNormalized = new UnityEvent<float>();
         /// <summary>
         /// Event invoked when the resource amount is restored.
         /// </summary>
         [Tooltip("Event invoked when the resource amount is restored.")]
-        [SerializeField] public UnityEvent<float> _amountRestored = new UnityEvent<float>();
+        public UnityEvent<float> AmountRestored = new UnityEvent<float>();
         /// <summary>
         /// Event invoked when the resource amount reaches its maximum.
         /// </summary>
         [Tooltip("Event invoked when the resource amount reaches its maximum.")]
-        [SerializeField] public UnityEvent<float> _amountMaxed = new UnityEvent<float>();
+        public UnityEvent<float> AmountMaxed = new UnityEvent<float>();
         /// <summary>
         /// Event invoked when the resource amount is low.
         /// </summary>
         [Tooltip("Event invoked when the resource amount is low.")]
-        [SerializeField] public UnityEvent<float> _amountLow = new UnityEvent<float>();
+        public UnityEvent<float> AmountLow = new UnityEvent<float>();
         /// <summary>
         /// Event invoked when the resource amount is emptied.
         /// </summary>
         [Tooltip("Event invoked when the resource amount is emptied.")]
-        [SerializeField] public UnityEvent<float> _amountEmptied = new UnityEvent<float>();
+        public UnityEvent<float> AmountEmptied = new UnityEvent<float>();
 
 
         #region Monobehaviour
@@ -356,7 +356,6 @@ namespace JAM.Shared.Systems.Resource
                 throw new ArgumentOutOfRangeException(nameof(amountToIncrease));
             }
 
-            if (IsEmptyAmount) { return success; }
             if (Immutable) { return success; }
             if (considerCooldowns)
             {
@@ -474,8 +473,9 @@ namespace JAM.Shared.Systems.Resource
         /// </summary>
         private void OnResourceChanged()
         {
-            _amountChanged?.Invoke(_resource.Amount);
-            _amountChangedNormalized?.Invoke(_resource.AmountNormalized);
+            Debug.Log("Resource changed " + _resource.Amount);
+            AmountChanged?.Invoke(_resource.Amount);
+            AmountChangedNormalized?.Invoke(_resource.AmountNormalized);
         }
 
         /// <summary>
@@ -483,7 +483,7 @@ namespace JAM.Shared.Systems.Resource
         /// </summary>
         private void OnResourceRestored()
         {
-            _amountRestored?.Invoke(_resource.Amount);
+            AmountRestored?.Invoke(_resource.Amount);
         }
 
         /// <summary>
@@ -491,7 +491,7 @@ namespace JAM.Shared.Systems.Resource
         /// </summary>
         private void OnResourceMaxed()
         {
-            _amountMaxed?.Invoke(_resource.Amount);
+            AmountMaxed?.Invoke(_resource.Amount);
         }
 
         /// <summary>
@@ -499,7 +499,7 @@ namespace JAM.Shared.Systems.Resource
         /// </summary>
         private void OnResourceLow()
         {
-            _amountLow?.Invoke(_resource.Amount);
+            AmountLow?.Invoke(_resource.Amount);
         }
 
         /// <summary>
@@ -507,7 +507,7 @@ namespace JAM.Shared.Systems.Resource
         /// </summary>
         private void OnResourceEmptied()
         {
-            _amountEmptied?.Invoke(_resource.Amount);
+            AmountEmptied?.Invoke(_resource.Amount);
         }
         #endregion
 
@@ -605,20 +605,5 @@ namespace JAM.Shared.Systems.Resource
             yield break;
         }
         #endregion
-    }
-
-    /// <summary>
-    /// Represents the result data of a resource system operation.
-    /// </summary>
-    public class ResourceSystemResult
-    {
-        /// <summary>
-        /// Gets or sets the previous state data of the resource system.
-        /// </summary>
-        public ResourceSystemData PreviousData;
-        /// <summary>
-        /// Gets or sets the current state data of the resource system.
-        /// </summary>
-        public ResourceSystemData CurrentData;
     }
 }

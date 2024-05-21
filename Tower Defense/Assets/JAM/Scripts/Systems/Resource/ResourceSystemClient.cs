@@ -1,113 +1,61 @@
+using JAM.Shared.Systems.Resource;
 using NaughtyAttributes;
-using System;
 using UnityEngine;
 
-namespace JAM.Shared.Systems.Resource
+namespace JAM.Resources
 {
-    /// <summary>
-    /// Example client script testing a Player Health
-    /// </summary>
     public class ResourceSystemClient : MonoBehaviour
     {
+        [SerializeField] private ResourceSystem _resourceSystem;
+
+        [Header("View")]
         [SerializeField] private bool _useView;
         [SerializeField] private ResourceSystemView _resourceSystemView;
-
-        private IResourceSystem _entityHealthSystem;
-
-        public event Action<float> EmptyHealth;
 
 
         private void Start()
         {
-            TryGetComponent(out _entityHealthSystem);
-            _entityHealthSystem.AmountEmptied.AddListener(x => EmptyHealth?.Invoke(x));
+            if (!TryGetComponent(out _resourceSystem))
+            {
+                Debug.LogError("No ResourceSystem found in the GameObject", this);
+            }
             InitializeResourceSystemView();
         }
 
-
         private void InitializeResourceSystemView()
         {
-            if(!_useView) {return;}
-            _resourceSystemView.MinLife = 0f;
-            _resourceSystemView.MaxLife = _entityHealthSystem.MaxAmount;
-            _resourceSystemView.UpdateHealthBar(_entityHealthSystem.Amount);
-            _entityHealthSystem.AmountChanged.AddListener(_resourceSystemView.UpdateHealthBar);
-        }
-
-        internal void HealPlayer(HealData data)
-        {
-            // The player only heals by a fixed amount
-            _entityHealthSystem.IncreaseAmount(data.Amount);
-        }
-
-        internal void TakeDamagePlayer(DamageData data)
-        {
-            // The player only get hurt by a fixed amount
-            _entityHealthSystem.DecreaseAmount(data.Amount);
-        }
-
-        internal void RestorePlayer()
-        {
-            // Restore Player health to the initial amount
-            _entityHealthSystem.ResetAmount();
+            if (!_useView) { return; }
+            _resourceSystemView.UpdateResourceAmount(_resourceSystem.Amount);
+            _resourceSystem.AmountChanged.AddListener(_resourceSystemView.UpdateResourceAmount);
         }
 
 
         #region Debug
         [Button]
         /// <summary>
-        /// Debug method to heal the player
+        /// Debug method to increase the resource
         /// </summary>
-        public void Heal()
+        public void Increase()
         {
-            var data = new HealData
-            {
-                Amount = 1f
-            };
-            HealPlayer(data);
+            _resourceSystem.IncreaseAmount(1f);
         }
 
         [Button]
         /// <summary>
-        /// Debug method to damage the player
+        /// Debug method to decrease the resource
         /// </summary>
-        public void TakeDamage()
+        public void Decrease()
         {
-            var data = new DamageData
-            {
-                Amount = 1f
-            };
-            TakeDamagePlayer(data);
+            _resourceSystem.DecreaseAmount(1f);
         }
 
         [Button]
         /// <summary>
-        /// Debug method to restore player health
+        /// Debug method to restore resource amount
         /// </summary>
-        public void Revive()
+        public void Restore()
         {
-            RestorePlayer();
-        }
-        #endregion
-
-
-        #region OnGUI
-        private void OnGUI()
-        {
-            if (GUI.Button(new Rect(10, 10, 150, 100), "Heal Player"))
-            {
-                Heal();
-            }
-
-            if (GUI.Button(new Rect(10, 120, 150, 100), "Damage Player"))
-            {
-                TakeDamage();
-            }
-
-            if (GUI.Button(new Rect(10, 230, 150, 100), "Revive Player"))
-            {
-                Revive();
-            }
+            _resourceSystem.RestoreAmount();
         }
         #endregion
     }
