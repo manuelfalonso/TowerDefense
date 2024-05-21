@@ -52,6 +52,11 @@ namespace JAM.Tower
             }
         }
 
+        public void SetBulletPool(ObjectPool objectPool) 
+        {
+            bulletPool = objectPool;
+        }
+
         private void Update()
         {
             OnTargetBehaviour();

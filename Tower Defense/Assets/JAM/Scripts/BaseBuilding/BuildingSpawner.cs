@@ -1,3 +1,4 @@
+using JAM.Tower;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ namespace JAM.Buildings
     {
         Tower,
         Cannon,
-        Other
+        Other,
+        None
     }
 
     public class BuildingSpawner : MonoBehaviourSingleton<BuildingSpawner>
@@ -17,6 +19,7 @@ namespace JAM.Buildings
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private List<ObjectPool> _towerPool;
         [SerializeField] private int objectDistance;
+        [SerializeField] private ObjectPool bulletPool;
         private bool _active;
         private BuildingType _buildingType;
 
@@ -51,6 +54,10 @@ namespace JAM.Buildings
                     newBuilding = _towerPool[i].CallObjectFromPool();
             }
             newBuilding.transform.position = spawnPosition;
+            if (newBuilding.TryGetComponent<TowerBehaviour>(out TowerBehaviour newTower)) 
+            {
+                newTower.SetBulletPool(bulletPool);
+            }
         }
 
         public void ActivateBuilding() 

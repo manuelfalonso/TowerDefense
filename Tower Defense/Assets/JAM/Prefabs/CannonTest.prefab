@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8922841069395678623}
-  m_Mesh: {fileID: -6527936063549427831, guid: 6d287b1c33d860b4cbf007f0c722f9b9, type: 3}
+  m_Mesh: {fileID: -7966783749476135131, guid: fca4c770f476b244f8478dcfbb540a38, type: 3}
 --- !u!23 &5649814173981255179
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   collider: {fileID: 7802638091112237489}
   bulletToShoot: {fileID: 7983049045505035775, guid: 45799a8b99c54f64e8799e98207f77c6,
     type: 3}
+  bulletPool: {fileID: 0}
 --- !u!54 &5106388690605785435
 Rigidbody:
   m_ObjectHideFlags: 0
