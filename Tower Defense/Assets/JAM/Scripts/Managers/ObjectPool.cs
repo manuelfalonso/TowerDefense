@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.Singleton;
+using JAM.Buildings;
 
 namespace JAM
 {

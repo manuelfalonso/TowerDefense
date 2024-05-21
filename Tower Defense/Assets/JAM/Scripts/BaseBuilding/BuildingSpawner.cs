@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils.Singleton;
 
-namespace JAM
+namespace JAM.Buildings
 {
     public enum BuildingType 
     {
@@ -15,7 +15,7 @@ namespace JAM
     public class BuildingSpawner : MonoBehaviourSingleton<BuildingSpawner>
     {
         [SerializeField] private Camera _mainCamera;
-        [SerializeField] private List<ObjectPool> _towerPool; // Make it a list (Hollow)
+        [SerializeField] private List<ObjectPool> _towerPool;
         [SerializeField] private int objectDistance;
         private bool _active;
         private BuildingType _buildingType;
