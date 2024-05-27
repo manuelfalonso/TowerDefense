@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils.Singleton;
 
-namespace JAM
+namespace JAM.Pools
 {
     public class ObjectPool : MonoBehaviour
     {
-        [SerializeField] private GameObject prefab;
-        [SerializeField] private int poolSize;
-        private List<GameObject> pooledObjects = new List<GameObject>();
+        [SerializeField] private GameObject _prefab;
+        [SerializeField] private int _poolSize;
+        private List<GameObject> _pooledObjects = new List<GameObject>();
 
-        private void InitializePool() 
+        private void InitializePool()
         {
-            for (int i = 0; i < poolSize; i++)
+            for (int i = 0; i < _poolSize; i++)
             {
-                GameObject obj = Instantiate(prefab);
+                GameObject obj = Instantiate(_prefab);
                 obj.SetActive(false);
-                pooledObjects.Add(obj);
+                _pooledObjects.Add(obj);
             }
         }
 
@@ -28,7 +28,7 @@ namespace JAM
 
         public GameObject CallObjectFromPool()
         {
-            foreach (GameObject obj in pooledObjects)
+            foreach (GameObject obj in _pooledObjects)
             {
                 if (!obj.activeInHierarchy)
                 {

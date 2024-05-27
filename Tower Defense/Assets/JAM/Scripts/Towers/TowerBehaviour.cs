@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using JAM.Entities.Enemy;
 using JAM.Bullets;
+using JAM.Pools;
 
 namespace JAM.Tower
 {
@@ -50,6 +51,11 @@ namespace JAM.Tower
                     secondsToShoot = 0;
                 }
             }
+        }
+
+        public void SetBulletPool(ObjectPool objectPool) 
+        {
+            bulletPool = objectPool;
         }
 
         private void Update()
