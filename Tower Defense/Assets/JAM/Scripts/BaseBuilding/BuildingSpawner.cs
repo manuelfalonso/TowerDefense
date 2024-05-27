@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.Singleton;
+using JAM.Pools;
 
 namespace JAM.Buildings
 {
@@ -17,7 +18,7 @@ namespace JAM.Buildings
     public class BuildingSpawner : MonoBehaviourSingleton<BuildingSpawner>
     {
         [SerializeField] private Camera _mainCamera;
-        [SerializeField] private List<ObjectPool> _towerPool;
+        [SerializeField] private List<BuildingPool> _towerPool;
         [SerializeField] private int objectDistance;
         [SerializeField] private ObjectPool bulletPool;
         private bool _active;
@@ -25,6 +26,7 @@ namespace JAM.Buildings
 
         protected override void Awake()
         {
+            base.Awake();
             _active = false;
             _buildingType = BuildingType.Tower;
         }

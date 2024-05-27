@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.Singleton;
-using JAM.Buildings;
 
-namespace JAM
+namespace JAM.Pools
 {
     public class ObjectPool : MonoBehaviour
     {
         [SerializeField] private GameObject _prefab;
         [SerializeField] private int _poolSize;
-        [SerializeField] private BuildingType _buildingType;
         private List<GameObject> _pooledObjects = new List<GameObject>();
 
         private void InitializePool()
@@ -39,11 +37,6 @@ namespace JAM
                 }
             }
             return null;
-        }
-
-        public BuildingType GetBuildingType() 
-        {
-            return _buildingType;
         }
     }
 }
