@@ -7,6 +7,10 @@ namespace JAM.Buildings
 {
     public class BuildingSelector : MonoBehaviourSingleton<BuildingSelector>
     {
+        [SerializeField] private string tower;
+        [SerializeField] private string cannon;
+        [SerializeField] private string other;
+
         private void Update()
         {
             SelectBuilding();
@@ -14,17 +18,17 @@ namespace JAM.Buildings
 
         private void SelectBuilding() 
         {
-            if (Input.GetKeyDown("1"))
+            if (Input.GetKeyDown(tower))
             {
                 BuildingSpawner.Instance.SetBuildingType(BuildingType.Tower);
                 BuildingSpawner.Instance.ActivateBuilding();
             }
-            if (Input.GetKeyDown("2"))
+            if (Input.GetKeyDown(cannon))
             {
                 BuildingSpawner.Instance.SetBuildingType(BuildingType.Cannon);
                 BuildingSpawner.Instance.ActivateBuilding();
             }
-            if (Input.GetKeyDown("3"))
+            if (Input.GetKeyDown(other))
             {
                 BuildingSpawner.Instance.SetBuildingType(BuildingType.Other);
                 BuildingSpawner.Instance.ActivateBuilding();
